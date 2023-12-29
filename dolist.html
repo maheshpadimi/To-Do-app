@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple To-Do List App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+            background-color: black; /* Add this line to set the background color */
+            color: white; /* Set text color to white for better visibility */
+        }
+
+        #task-input {
+            padding: 8px;
+        }
+
+        #task-list {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .task-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px;
+            border: 1px solid #ddd;
+            margin: 5px 0;
+        }
+
+        .completed {
+            text-decoration: line-through;
+            color: #888;
+        }
+    </style>
+</head>
+<body>
+
+<h1>To-Do List</h1>
+
+<input type="text" id="task-input" placeholder="Add a new task">
+<button onclick="addTask()">Add Task</button>
+
+<ul id="task-list"></ul>
+
+<script>
+    function addTask() {
+        const taskInput = document.getElementById("task-input");
+        const taskList = document.getElementById("task-list");
+
+        if (taskInput.value.trim() === "") {
+            alert("Please enter a task");
+            return;
+        }
+
+        const taskItem = document.createElement("li");
+        taskItem.className = "task-item";
+
+        const taskText = document.createElement("span");
+        taskText.textContent = taskInput.value;
+        taskItem.appendChild(taskText);
+
+        const deleteButton = document.createElement("button");
+        deleteButton.textContent = "Delete";
+        deleteButton.onclick = function() {
+            taskItem.remove();
+        };
+        taskItem.appendChild(deleteButton);
+
+        const completeButton = document.createElement("button");
+        completeButton.textContent = "Complete";
+        completeButton.onclick = function() {
+            taskText.classList.toggle("completed");
+        };
+        taskItem.appendChild(completeButton);
+
+        taskList.appendChild(taskItem);
+
+        // Clear the input field
+        taskInput.value = "";
+    }
+</script>
+
+</body>
+</html>
